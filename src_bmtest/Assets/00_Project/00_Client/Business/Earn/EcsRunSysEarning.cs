@@ -5,20 +5,6 @@ using UnityEngine;
 
 namespace Client
 {
-
-    /*
-        Прогресс дохода
-        Бар заполняется от 0% до 100% за время “Задержка дохода” из конфига ниже.
-        Как только доходит до 100%, значение текущего дохода зачисляется в Баланс,
-        а прогресс начинает копиться заново с 0%.
-        Значение бара должно обновляться каждый кадр (для плавности).
-
-    Доход = lvl * базовый_доход * (1 + множитель_от_улучшения_1 + множитель_от_улучшения_2)
-
-     */
-
-
-    //Система дохода
     sealed class EcsRunSysEarning : IEcsRunSystem
     {
 
@@ -34,8 +20,8 @@ namespace Client
 
         public void Run(IEcsSystems systems)
         {
-            //Ловим событие Need recalculate
-            //Прилетает при поднятии уровня, применении апгрейдов
+            //Need recalculate 
+            //РџСЂРёР»РµС‚Р°РµС‚ РїСЂРё РїРѕРґРЅСЏС‚РёРё СѓСЂРѕРІРЅСЏ, РїСЂРёРјРµРЅРµРЅРёРё Р°РїРіСЂРµР№РґРѕРІ 
             foreach (var entity in _filterEventEarningNeedRecalculate.Value)
             {
                 Debug.Log("EcsRunSysEarning : EventEarningNeedRecalculate");
@@ -46,9 +32,9 @@ namespace Client
                 float upgradeMultFirst = 0;
                 float upgradeMultSecond = 0;
                 if (compBusiness.IsUpgrade1Applyed) 
-                    upgradeMultFirst = compBusiness.UpgradeFirstEarnМultiplier / 100F;   
+                    upgradeMultFirst = compBusiness.UpgradeFirstEarnРњultiplier / 100F;   
                 if (compBusiness.IsUpgrade2Applyed) 
-                    upgradeMultSecond = compBusiness.UpgradeSecondEarnМultiplier / 100F;
+                    upgradeMultSecond = compBusiness.UpgradeSecondEarnРњultiplier / 100F;
                
                 //recalculate
                 int levelUpPrice = (compBusiness.Level + 1) * compBusiness.BasePrice;
@@ -57,12 +43,12 @@ namespace Client
                 compBusiness.EarnVal = Mathf.RoundToInt(newEarnVal);
                 //UI View
                 _poolventUiBusinessViewUpdate.Value.Add(entity);
-                //Чистка события после обработки
+                //Р§РёСЃС‚РєР° СЃРѕР±С‹С‚РёСЏ РїРѕСЃР»Рµ РѕР±СЂР°Р±РѕС‚РєРё
                 _poolEcsEventEarningNeedRecalculate.Value.Del(entity);
             }
 
-            //Real time прогресс подсчет, таймер
-            //Ищем бизнесы с тегом OwnedBusiness
+            //Real time РїСЂРѕРіСЂРµСЃСЃ РїРѕРґСЃС‡РµС‚, С‚Р°Р№РјРµСЂ
+            //РС‰РµРј Р±РёР·РЅРµСЃС‹ СЃ С‚РµРіРѕРј OwnedBusiness
             foreach (var entity in _filterTagOwnedBusiness.Value)
             {
                 ref var compBusiness = ref _poolBusiness.Value.Get(entity);
@@ -72,7 +58,7 @@ namespace Client
                 {
                     //Reset timer
                     compBusiness.CurrentTimer = compBusiness.EarnDelay;
-                    //Бросаем ивент что заработана сумма, кошелек обработает
+                    //Р‘СЂРѕСЃР°РµРј РёРІРµРЅС‚ С‡С‚Рѕ Р·Р°СЂР°Р±РѕС‚Р°РЅР° СЃСѓРјРјР°, РєРѕС€РµР»РµРє РѕР±СЂР°Р±РѕС‚Р°РµС‚
                     _poolEventEarned.Value.Add(entity);
                     ref var compEvent = ref _poolEventEarned.Value.Get(entity);
                     compEvent.EarnedValue = compBusiness.EarnVal;

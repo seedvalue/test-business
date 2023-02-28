@@ -91,17 +91,17 @@ namespace Client
 
                 //Upgrade 1
                 itemView.TextUpgradeFirstName.text = compBusiness.UpgradeFirstName;
-                itemView.TextUpgradeFirstPriceVal.text = "÷ÂÌ‡: " + compBusiness.UpgradeFirstPrice.ToString() + "$";
-                itemView.TextUpgradeFirstEarnÃultiplie.text = "ƒÓıÓ‰: +" + compBusiness.UpgradeFirstEarnÃultiplier.ToString() + "%";
+                itemView.TextUpgradeFirstPriceVal.text = "–¶–µ–Ω–∞: " + compBusiness.UpgradeFirstPrice.ToString() + "$";
+                itemView.TextUpgradeFirstEarn–úultiplie.text = "–î–æ—Ö–æ–¥: +" + compBusiness.UpgradeFirstEarn–úultiplier.ToString() + "%";
                 itemView.ButtonUpgradeFirst.onClick.AddListener(delegate { OnClickUpgradeFirst(entBusiness); });
 
                 //Upgrade 2
                 itemView.TextUpgradeSecondName.text = compBusiness.UpgradeSecondName;
-                itemView.TextUpgradeSecondPriceVal.text = "÷ÂÌ‡: " + compBusiness.UpgradeSecondPrice.ToString() + "$";
-                itemView.TextUpgradeSecondEarnÃultiplie.text = "ƒÓıÓ‰: +" + compBusiness.UpgradeSecondEarnÃultiplier.ToString() + "%";
+                itemView.TextUpgradeSecondPriceVal.text = "–¶–µ–Ω–∞: " + compBusiness.UpgradeSecondPrice.ToString() + "$";
+                itemView.TextUpgradeSecondEarn–úultiplie.text = "–î–æ—Ö–æ–¥: +" + compBusiness.UpgradeSecondEarn–úultiplier.ToString() + "%";
                 itemView.ButtonUpgradeSecond.onClick.AddListener(delegate { OnClickUpgradeSecond(entBusiness); });
 
-                //”‰‡ÎËÚ¸ Ó·‡·ÓÚ‡ÌÌ˚È Event
+                //–£–¥–∞–ª–∏—Ç—å –æ–±—Ä–∞–±–æ—Ç–∞–Ω–Ω—ã–π Event
                 _poolEventUiBusinessViewCreate.Value.Del(entBusiness);
             }
 
@@ -110,15 +110,15 @@ namespace Client
             {
                 ref var compBusiness = ref _poolBusiness.Value.Get(entBusiness);
                 var price = compBusiness.CurrentLevelUpPrice;
-                compBusiness.UiView.TextLevelUpPrice.text = "÷ÂÌ‡:" + price.ToString() + "$";
+                compBusiness.UiView.TextLevelUpPrice.text = "–¶–µ–Ω–∞:" + price.ToString() + "$";
                 compBusiness.UiView.TextLevelVal.text = compBusiness.Level.ToString();
                 compBusiness.UiView.TextEarnVal.text = compBusiness.EarnVal.ToString() + "$";
-                // ÛÔÎÂÌÓ
+                //–ö—É–ø–ª–µ–Ω–æ
                 if (compBusiness.IsUpgrade1Applyed)
-                    compBusiness.UiView.TextUpgradeFirstPriceVal.text = " ”œÀ≈ÕŒ";
+                    compBusiness.UiView.TextUpgradeFirstPriceVal.text = "–ö–£–ü–õ–ï–ù–û";
                 if (compBusiness.IsUpgrade2Applyed)
-                    compBusiness.UiView.TextUpgradeSecondPriceVal.text = " ”œÀ≈ÕŒ";
-                //”‰‡ÎËÚ¸ Ó·‡·ÓÚ‡ÌÌ˚È Event
+                    compBusiness.UiView.TextUpgradeSecondPriceVal.text = "–ö–£–ü–õ–ï–ù–û";
+                //–£–¥–∞–ª–∏—Ç—å –æ–±—Ä–∞–±–æ—Ç–∞–Ω–Ω—ã–π Event
                 _poolventUiBusinessViewUpdate.Value.Del(entBusiness);
             }
 

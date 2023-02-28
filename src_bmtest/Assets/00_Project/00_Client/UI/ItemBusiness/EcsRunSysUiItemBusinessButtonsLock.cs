@@ -6,10 +6,10 @@ using UnityEngine.UI;
 namespace Client
 {
     /// <summary>
-    /// Система обновляет состояние кнопок. 
-    /// Блокирует их или разблокирует,
-    /// если достаточно средств на покупку
-    /// Рефреш происходит только после изменения кошелька (не каждый кадр)
+    /// РЎРёСЃС‚РµРјР° РѕР±РЅРѕРІР»СЏРµС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ РєРЅРѕРїРѕРє. 
+    /// Р‘Р»РѕРєРёСЂСѓРµС‚ РёС… РёР»Рё СЂР°Р·Р±Р»РѕРєРёСЂСѓРµС‚,
+    /// РµСЃР»Рё РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃСЂРµРґСЃС‚РІ РЅР° РїРѕРєСѓРїРєСѓ
+    /// Р РµС„СЂРµС€ РїСЂРѕРёСЃС…РѕРґРёС‚ С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёСЏ РєРѕС€РµР»СЊРєР° (РЅРµ РєР°Р¶РґС‹Р№ РєР°РґСЂ)
     /// </summary>
     sealed class EcsRunSysUiItemBusinessButtonsLock : IEcsRunSystem
     {
@@ -32,14 +32,14 @@ namespace Client
         public void Run(IEcsSystems systems)
         {
 
-            //Кошелек изменен
+            //РљРѕС€РµР»РµРє РёР·РјРµРЅРµРЅ
             foreach (var entWallet in _filterEventWalletUpdated.Value)
             {
                 Debug.Log("EcsRunSysButtonsLock : WalletUpdated, update buttons lock");
                 ref var compWallet = ref _poolWallet.Value.Get(entWallet);
                 int moneyHave = compWallet.MoneyHave;
 
-                //фильтр всех бизнесов
+                //С„РёР»СЊС‚СЂ РІСЃРµС… Р±РёР·РЅРµСЃРѕРІ
                 foreach (var entBusiness in _filterBusiness.Value)
                 {
                     ref var compBusiness = ref _poolBusiness.Value.Get(entBusiness);
@@ -49,20 +49,20 @@ namespace Client
                     btnLevelUp.interactable = IsMoneyHave(compBusiness.CurrentLevelUpPrice, moneyHave);                    
                     if(compBusiness.IsUpgrade1Applyed == false)
                     {
-                        //Не купленный апгрейд 1 проверяем хватает ли денег
+                        //РќРµ РєСѓРїР»РµРЅРЅС‹Р№ Р°РїРіСЂРµР№Рґ 1 РїСЂРѕРІРµСЂСЏРµРј С…РІР°С‚Р°РµС‚ Р»Рё РґРµРЅРµРі
                         btnUpgrade1.interactable = IsMoneyHave(compBusiness.UpgradeFirstPrice, moneyHave);
-                    } else btnUpgrade1.interactable = false; //Куплено, лочим
+                    } else btnUpgrade1.interactable = false; //РљСѓРїР»РµРЅРѕ, Р»РѕС‡РёРј
 
                     if (compBusiness.IsUpgrade2Applyed == false)
                     {
-                        //Не купленный апгрейд 1 проверяем хватает ли денег
+                        //РќРµ РєСѓРїР»РµРЅРЅС‹Р№ Р°РїРіСЂРµР№Рґ 1 РїСЂРѕРІРµСЂСЏРµРј С…РІР°С‚Р°РµС‚ Р»Рё РґРµРЅРµРі
                         btnUpgrade2.interactable = IsMoneyHave(compBusiness.UpgradeSecondPrice, moneyHave);
                     }
-                    else btnUpgrade2.interactable = false; //Куплено, лочим
+                    else btnUpgrade2.interactable = false; //РљСѓРїР»РµРЅРѕ, Р»РѕС‡РёРј
                 }
             }
-            //Лочить кнопки улучшений если бизнес не куплен
-            //фильтр не купленных бизнесов
+            //Р›РѕС‡РёС‚СЊ РєРЅРѕРїРєРё СѓР»СѓС‡С€РµРЅРёР№ РµСЃР»Рё Р±РёР·РЅРµСЃ РЅРµ РєСѓРїР»РµРЅ
+            //С„РёР»СЊС‚СЂ РЅРµ РєСѓРїР»РµРЅРЅС‹С… Р±РёР·РЅРµСЃРѕРІ
             foreach (var entNotOwned in _filterNotOwnedBusinesses.Value)
             {
                 ref var compBusiness = ref _poolBusiness.Value.Get(entNotOwned);

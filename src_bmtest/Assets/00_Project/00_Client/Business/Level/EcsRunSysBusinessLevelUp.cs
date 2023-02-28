@@ -22,7 +22,7 @@ namespace Client
         readonly EcsPoolInject<EcsEventLevelUp> _poolEventOnBusinessLevelUp = default;
 
 
-        //Ловим Ui клик поднять левел
+        //Р›РѕРІРёРј Ui РєР»РёРє РїРѕРґРЅСЏС‚СЊ Р»РµРІРµР»
         readonly EcsFilterInject<Inc<EcsEventOnLevelUpClicked>> _filterOnLevelUpClicked = default;
 
         //Event recalculate
@@ -30,7 +30,7 @@ namespace Client
 
         public void Run(IEcsSystems systems)
         {
-            //Кликнули поднять уровень
+            //РљР»РёРєРЅСѓР»Рё РїРѕРґРЅСЏС‚СЊ СѓСЂРѕРІРµРЅСЊ
             foreach (var entityLevelUpClicked in _filterOnLevelUpClicked.Value)
             {
                 Debug.Log("EcsRunSysBusinessLevelUp : OnLevelUpClicked");
@@ -41,14 +41,14 @@ namespace Client
                     if (IsCanBuy(upgradePrice, entWallet))
                     {
                         SpentMoney(upgradePrice, entWallet);
-                        //Бросаем ивент для поднятия уровня
+                        //Р‘СЂРѕСЃР°РµРј РёРІРµРЅС‚ РґР»СЏ РїРѕРґРЅСЏС‚РёСЏ СѓСЂРѕРІРЅСЏ
                         _poolEventOnBusinessLevelUp.Value.Add(entityLevelUpClicked);
                     }
                     else Debug.Log("EcsRunSysBusinessLevelUp : not have money!");
                 }
             }
 
-            //Поднятие уровня
+            //РџРѕРґРЅСЏС‚РёРµ СѓСЂРѕРІРЅСЏ
             foreach (var entBusiness in _filterEventOnBusinessLevelUp.Value)
             {
                 ref var compBusiness = ref _poolBusiness.Value.Get(entBusiness);
@@ -58,9 +58,9 @@ namespace Client
                 {
                     _poolTagOwnedBusiness.Value.Add(entBusiness);
                 }
-                //Бросаем ивент пересчета заработка и других переменных
+                //Р‘СЂРѕСЃР°РµРј РёРІРµРЅС‚ РїРµСЂРµСЃС‡РµС‚Р° Р·Р°СЂР°Р±РѕС‚РєР° Рё РґСЂСѓРіРёС… РїРµСЂРµРјРµРЅРЅС‹С…
                 _poolEventEarningNeedRecalculate.Value.Add(entBusiness);
-                //Удаляем ивент после обработки
+                //РЈРґР°Р»СЏРµРј РёРІРµРЅС‚ РїРѕСЃР»Рµ РѕР±СЂР°Р±РѕС‚РєРё
                 _poolEventOnBusinessLevelUp.Value.Del(entBusiness);
             }
         }
@@ -74,7 +74,7 @@ namespace Client
 
         private void SpentMoney(int price, int entWallet)
         {
-            //Ивент на кошелек
+            //РРІРµРЅС‚ РЅР° РєРѕС€РµР»РµРє
             _poolEventMoneySpent.Value.Add(entWallet);
             ref var compMoneySpent = ref _poolEventMoneySpent.Value.Get(entWallet);
             compMoneySpent.SpentValue = price;

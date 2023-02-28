@@ -44,12 +44,12 @@ namespace Client
             if (PlayerPrefs.HasKey(PREF_KEY_WALLET))
             {
                 int savedMoney = PlayerPrefs.GetInt(PREF_KEY_WALLET);
-                //Ищем кошелек
+                //РС‰РµРј РєРѕС€РµР»РµРє
                 foreach (var entWallet in _filterWallet.Value)
                 {
                     _poolEventWalletRestored.Value.Add(entWallet);
                     ref var compWalletRestored = ref _poolEventWalletRestored.Value.Get(entWallet);
-                    //Отправить событие на кошелек
+                    //РћС‚РїСЂР°РІРёС‚СЊ СЃРѕР±С‹С‚РёРµ РЅР° РєРѕС€РµР»РµРє
                     compWalletRestored.RestoredMoney = savedMoney;
                 }
             }
@@ -60,21 +60,21 @@ namespace Client
             //Event Save data
             foreach (var entEventSave in _filterSaveData.Value)
             {
-                //Найти активные бизнесы
+                //РќР°Р№С‚Рё Р°РєС‚РёРІРЅС‹Рµ Р±РёР·РЅРµСЃС‹
                 foreach (var entActiveBusinesses in _filterTagOwnedBusiness.Value)
                 {
                     ref var compBusiness = ref _poolBusiness.Value.Get(entActiveBusinesses);
                     string json = JsonUtility.ToJson(compBusiness);
                     SaveBusiness(compBusiness.ID, json);
                 }
-                //Найти кошелек
+                //РќР°Р№С‚Рё РєРѕС€РµР»РµРє
                 foreach (var entWallet in _filterWallet.Value)
                 {
                     ref var compWallet = ref _poolWallet.Value.Get(entWallet);
                     SaveWallet(compWallet.MoneyHave);
                 }
                 _poolEventQuitApp.Value.Add(entEventSave);
-                //Удалить ивент после обработки
+                //РЈРґР°Р»РёС‚СЊ РёРІРµРЅС‚ РїРѕСЃР»Рµ РѕР±СЂР°Р±РѕС‚РєРё
                 _poolEventSaveData.Value.Del(entEventSave);
             }
 
@@ -83,7 +83,7 @@ namespace Client
             {
                 PlayerPrefs.DeleteAll();
                 _poolEventQuitApp.Value.Add(entEventClean);
-                //Удалить ивент после обработки
+                //РЈРґР°Р»РёС‚СЊ РёРІРµРЅС‚ РїРѕСЃР»Рµ РѕР±СЂР°Р±РѕС‚РєРё
                 _poolEventCleanSavedData.Value.Del(entEventClean);
             }
 
@@ -95,24 +95,24 @@ namespace Client
                 int ID = compRestoreEvent.IDconfig;
                 if(IsSavedBusinessHave(ID))
                 {
-                    //Бизнес с данным ID есть сохраненный
+                    //Р‘РёР·РЅРµСЃ СЃ РґР°РЅРЅС‹Рј ID РµСЃС‚СЊ СЃРѕС…СЂР°РЅРµРЅРЅС‹Р№
                     ref var compCurrentBusiness = ref _poolBusiness.Value.Get(entBusiness);
                     EcsComBusiness restored = GetSavedBusiness(ID);
-                    //Восстанавливаем только прогресс, левел, применены ли апдейты
-                    //значение таймера. Остальное засетаплено изначально с конфигов
+                    //Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‚РѕР»СЊРєРѕ РїСЂРѕРіСЂРµСЃСЃ, Р»РµРІРµР», РїСЂРёРјРµРЅРµРЅС‹ Р»Рё Р°РїРґРµР№С‚С‹
+                    //Р·РЅР°С‡РµРЅРёРµ С‚Р°Р№РјРµСЂР°. РћСЃС‚Р°Р»СЊРЅРѕРµ Р·Р°СЃРµС‚Р°РїР»РµРЅРѕ РёР·РЅР°С‡Р°Р»СЊРЅРѕ СЃ РєРѕРЅС„РёРіРѕРІ
                     compCurrentBusiness.BusinessProgressEarning = restored.BusinessProgressEarning;
                     compCurrentBusiness.CurrentTimer = restored.CurrentTimer;
                     compCurrentBusiness.Level = restored.Level;
                     compCurrentBusiness.IsUpgrade1Applyed = restored.IsUpgrade1Applyed;
                     compCurrentBusiness.IsUpgrade2Applyed = restored.IsUpgrade2Applyed;
-                    //Ставим тег, что бизнес куплен
+                    //РЎС‚Р°РІРёРј С‚РµРі, С‡С‚Рѕ Р±РёР·РЅРµСЃ РєСѓРїР»РµРЅ
                     if (compCurrentBusiness.Level>0)
                     {
                         if (_pooTagOwnedBusiness.Value.Has(entBusiness) == false)
                             _pooTagOwnedBusiness.Value.Add(entBusiness);
                     }
                    
-                    //И бросить ивент для пересчета формул
+                    //Р Р±СЂРѕСЃРёС‚СЊ РёРІРµРЅС‚ РґР»СЏ РїРµСЂРµСЃС‡РµС‚Р° С„РѕСЂРјСѓР»
                     if (_poolEventEarningNeedRecalculate.Value.Has(entBusiness) == false)
                     _poolEventEarningNeedRecalculate.Value.Add(entBusiness);
 

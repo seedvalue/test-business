@@ -2,7 +2,6 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.ExtendedSystems;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Unity.Ugui;
-using System.ComponentModel;
 using UnityEngine;
 
 namespace Client

@@ -7,7 +7,7 @@ namespace Client
     sealed class EcsInitSysApp : IEcsInitSystem
     {
 
-        // Поле будет содержать ссылку на объект совместимого типа, переданого в вызов EcsSystems.Inject(xxx).
+        // Injected Config
         readonly EcsCustomInject<GameCfg> _gameConfig = default;
 
         readonly EcsPoolInject<EcsComBusiness> _poolBusiness = default;
@@ -31,9 +31,9 @@ namespace Client
                 var entBusiness = ecsWorld.NewEntity();
                 _poolBusiness.Value.Add(entBusiness);
                 SetupBusiness(oneBusinessCfg, entBusiness);
-                //Ивент на создание UI елемента
+                //Event to create UI item
                 _poolEventUiBusinessViewCreate.Value.Add(entBusiness);
-                //Бросаем ивент пересчета заработка и других переменных
+                //Recalculate earnings
                 _poolEventEarningNeedRecalculate.Value.Add(entBusiness);
             }
         }
@@ -50,17 +50,14 @@ namespace Client
             //Upgrade 1
             comp.UpgradeFirstName = cfg.UpgradeFirstName;
             comp.UpgradeFirstPrice = cfg.UpgradeFirstPrice;
-            //Множитель дохода +10% ...
-            comp.UpgradeFirstEarnМultiplier = cfg.UpgradeFirstEarnМultiplier;
+            comp.UpgradeFirstEarnРњultiplier = cfg.UpgradeFirstEarnРњultiplier;
             //Upgrade 2
             comp.UpgradeSecondName = cfg.UpgradeSecondName;
             comp.UpgradeSecondPrice = cfg.UpgradeSecondPrice;
-            //Множитель дохода +10% ...
-            comp.UpgradeSecondEarnМultiplier = cfg.UpgradeSecondEarnМultiplier;
-            //Если бизнес куплен по дефолту
+            comp.UpgradeSecondEarnРњultiplier = cfg.UpgradeSecondEarnРњultiplier;
             if (cfg.IsOwnAtStartGame)
             {
-                //И подымаем до левел 1 событием
+                //Level Up to 1 for owned business at game start
                 _poolEventOnBusinessLevelUp.Value.Add(entity);
             }
             TryRestoreBusiness(entity, cfg.ID);

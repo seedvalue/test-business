@@ -27,17 +27,17 @@ namespace Client
         {
            
             var ecsWorld = systems.GetWorld();
-            //Создаем сущность кошелька
-            //Баланс 1, поэтому кешируем его 
+            //РЎРѕР·РґР°РµРј СЃСѓС‰РЅРѕСЃС‚СЊ РєРѕС€РµР»СЊРєР°
+            //Р‘Р°Р»Р°РЅСЃ 1, РїРѕСЌС‚РѕРјСѓ РєРµС€РёСЂСѓРµРј РµРіРѕ 
             _entWallet = ecsWorld.NewEntity();
             _poolWallet.Value.Add(_entWallet);
-            //Бросаем событие всем, что кошелек обновлен
+            //Р‘СЂРѕСЃР°РµРј СЃРѕР±С‹С‚РёРµ РІСЃРµРј, С‡С‚Рѕ РєРѕС€РµР»РµРє РѕР±РЅРѕРІР»РµРЅ
             _poolEventWalletUpdated.Value.Add(_entWallet);
         }
 
         public void Run(IEcsSystems systems)
         {
-            //Ловим событие восстановления кошелька
+            //Р›РѕРІРёРј СЃРѕР±С‹С‚РёРµ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РєРѕС€РµР»СЊРєР°
             foreach (var entWallet in _filterEventWalletRestored.Value)
             {
                 Debug.Log("EcsRunSysWallet : Wallet restored");
@@ -46,15 +46,15 @@ namespace Client
 
                 ref var compWallet = ref _poolWallet.Value.Get(_entWallet);
                 compWallet.MoneyHave = restoredMoney;
-                //Бросаем событие всем, что кошелек обновлен
+                //Р‘СЂРѕСЃР°РµРј СЃРѕР±С‹С‚РёРµ РІСЃРµРј, С‡С‚Рѕ РєРѕС€РµР»РµРє РѕР±РЅРѕРІР»РµРЅ
                 if (_poolEventWalletUpdated.Value.Has(_entWallet) == false)
                     _poolEventWalletUpdated.Value.Add(_entWallet);
-                //Удалить обработанное событие восстановления
+                //РЈРґР°Р»РёС‚СЊ РѕР±СЂР°Р±РѕС‚Р°РЅРЅРѕРµ СЃРѕР±С‹С‚РёРµ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ
                 _poolEventWalletRestored.Value.Del(entWallet);
             }
 
 
-            //Ловим событие зароботка
+            //Р›РѕРІРёРј СЃРѕР±С‹С‚РёРµ Р·Р°СЂРѕР±РѕС‚РєР°
             foreach (var entEarnedEvent in _filterEventEarned.Value)
             {
                 Debug.Log("EcsRunSysWallet : EarnedEvent");
@@ -63,12 +63,12 @@ namespace Client
 
                 ref var compWallet = ref _poolWallet.Value.Get(_entWallet);
                 compWallet.MoneyHave += earnedCount;
-                //Бросаем событие всем, что кошелек обновлен
+                //Р‘СЂРѕСЃР°РµРј СЃРѕР±С‹С‚РёРµ РІСЃРµРј, С‡С‚Рѕ РєРѕС€РµР»РµРє РѕР±РЅРѕРІР»РµРЅ
                 if (_poolEventWalletUpdated.Value.Has(_entWallet) == false)
                     _poolEventWalletUpdated.Value.Add(_entWallet);
             }
 
-            //Ловим событие утраты денег
+            //Р›РѕРІРёРј СЃРѕР±С‹С‚РёРµ СѓС‚СЂР°С‚С‹ РґРµРЅРµРі
             foreach (var entEventMoneySpent in _filterEventMoneySpent.Value)
             {
                 Debug.Log("EcsRunSysWallet : EventMoneySpent");
@@ -76,9 +76,9 @@ namespace Client
                 ref var compWallet = ref _poolWallet.Value.Get(_entWallet);
                 if (compWallet.MoneyHave >= compSpent.SpentValue)
                 {
-                    //Деньги есть, тратим
+                    //Р”РµРЅСЊРіРё РµСЃС‚СЊ, С‚СЂР°С‚РёРј
                     compWallet.MoneyHave -= compSpent.SpentValue;
-                    //Бросаем событие всем, что кошелек обновлен
+                    //Р‘СЂРѕСЃР°РµРј СЃРѕР±С‹С‚РёРµ РІСЃРµРј, С‡С‚Рѕ РєРѕС€РµР»РµРє РѕР±РЅРѕРІР»РµРЅ
                     if (_poolEventWalletUpdated.Value.Has(_entWallet) == false)
                         _poolEventWalletUpdated.Value.Add(_entWallet);
                 }

@@ -21,7 +21,7 @@ namespace Client
         readonly EcsPoolInject<EcsEventOnBusinessUpgrade1> _poolEventEventOnBusinessUpgrade1 = default;
         readonly EcsPoolInject<EcsEventOnBusinessUpgrade2> _poolEventEventOnBusinessUpgrade2 = default;
 
-        //Ловим Ui клик применить Upgrade
+        //Р›РѕРІРёРј Ui РєР»РёРє РїСЂРёРјРµРЅРёС‚СЊ Upgrade
         readonly EcsFilterInject<Inc<EcsEventOnUpgrade1Clicked>> _filterEventOnUpgrade1Clicked = default;
         readonly EcsFilterInject<Inc<EcsEventOnUpgrade2Clicked>> _filterEventOnUpgrade2Clicked = default;
 
@@ -31,7 +31,7 @@ namespace Client
 
         public void Run(IEcsSystems systems)
         {
-            //Кликнули применить Upgrade 1
+            //РљР»РёРєРЅСѓР»Рё РїСЂРёРјРµРЅРёС‚СЊ Upgrade 1
             foreach (var entityUpgrade1 in _filterEventOnUpgrade1Clicked.Value)
             {
                 Debug.Log("EcsRunSysBusinessUpgrade : EventOnUpgrade1Clicked");
@@ -42,7 +42,7 @@ namespace Client
                     if(IsCanBuy(upgradePrice, entWallet))
                     {
                         SpentMoney(upgradePrice, entWallet);
-                        //Деньги уплочены Апгрейдим 1
+                        //Р”РµРЅСЊРіРё СѓРїР»РѕС‡РµРЅС‹ РђРїРіСЂРµР№РґРёРј 1
                         _poolEventEventOnBusinessUpgrade1.Value.Add(entityUpgrade1);
                     }
                     else Debug.Log("EcsRunSysBusinessUpgrade 1 : not have money!");
@@ -50,7 +50,7 @@ namespace Client
                 }
             }
 
-            //Кликнули применить Upgrade 2
+            //РљР»РёРєРЅСѓР»Рё РїСЂРёРјРµРЅРёС‚СЊ Upgrade 2
             foreach (var entityUpgrade2 in _filterEventOnUpgrade2Clicked.Value)
             {
                 Debug.Log("EcsRunSysBusinessUpgrade : EventOnUpgrade2Clicked");
@@ -61,7 +61,7 @@ namespace Client
                     if (IsCanBuy(upgradePrice, entWallet))
                     {
                         SpentMoney(upgradePrice, entWallet);
-                        //Деньги уплочены Апгрейдим 2
+                        //Р”РµРЅСЊРіРё СѓРїР»РѕС‡РµРЅС‹ РђРїРіСЂРµР№РґРёРј 2
                         _poolEventEventOnBusinessUpgrade2.Value.Add(entityUpgrade2);
                     }
                     else Debug.Log("EcsRunSysBusinessUpgrade 2 : not have money!");
@@ -74,7 +74,7 @@ namespace Client
                 ref var compBusiness = ref _poolBusiness.Value.Get(entBusiness);
                 compBusiness.IsUpgrade1Applyed = true;
                 _poolEventEarningNeedRecalculate.Value.Add(entBusiness);
-                //Удаляем ивент после обработки
+                //РЈРґР°Р»СЏРµРј РёРІРµРЅС‚ РїРѕСЃР»Рµ РѕР±СЂР°Р±РѕС‚РєРё
                 _poolEventEventOnBusinessUpgrade1.Value.Del(entBusiness);
             }
 
@@ -84,7 +84,7 @@ namespace Client
                 ref var compBusiness = ref _poolBusiness.Value.Get(entBusiness);
                 compBusiness.IsUpgrade2Applyed = true;
                 _poolEventEarningNeedRecalculate.Value.Add(entBusiness);
-                //Удаляем ивент после обработки
+                //РЈРґР°Р»СЏРµРј РёРІРµРЅС‚ РїРѕСЃР»Рµ РѕР±СЂР°Р±РѕС‚РєРё
                 _poolEventEventOnBusinessUpgrade2.Value.Del(entBusiness);
             }
         }
@@ -98,7 +98,7 @@ namespace Client
 
         private void SpentMoney(int price, int entWallet)
         {
-            //Ивент на кошелек
+            //РРІРµРЅС‚ РЅР° РєРѕС€РµР»РµРє
             _poolEventMoneySpent.Value.Add(entWallet);
             ref var compMoneySpent = ref _poolEventMoneySpent.Value.Get(entWallet);
             compMoneySpent.SpentValue = price;

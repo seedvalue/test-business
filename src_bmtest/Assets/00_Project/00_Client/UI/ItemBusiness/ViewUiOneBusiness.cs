@@ -1,4 +1,3 @@
-
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,12 +16,12 @@ public class ViewUiOneBusiness : MonoBehaviour
 
     [Header("Upgrade 1")]
     public TMP_Text TextUpgradeFirstName;
-    public TMP_Text TextUpgradeFirstEarnÃultiplie;
+    public TMP_Text TextUpgradeFirstEarn–úultiplie;
     public TMP_Text TextUpgradeFirstPriceVal;
 
     [Header("Upgrade 2")]
     public TMP_Text TextUpgradeSecondName;
-    public TMP_Text TextUpgradeSecondEarnÃultiplie;
+    public TMP_Text TextUpgradeSecondEarn–úultiplie;
     public TMP_Text TextUpgradeSecondPriceVal;
 
     [Header("Buttons")]

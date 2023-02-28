@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Client {
     sealed class EcsRunSysAppQuit : IEcsRunSystem {
         readonly EcsFilterInject<Inc<EcsEventQuitApp>> _filterEventQuitApp = default;
-        readonly EcsPoolInject<EcsEventQuitApp> _poolrEventQuitApp = default;
+        readonly EcsPoolInject<EcsEventQuitApp> _poolEventQuitApp = default;
 
         public void Run(IEcsSystems systems)
         {
@@ -13,7 +13,7 @@ namespace Client {
             {
                 Debug.Log("EcsRunSysQuitApp : Application.Quit()");
                 Application.Quit();
-                _poolrEventQuitApp.Value.Del(entity);
+                _poolEventQuitApp.Value.Del(entity);
             }
         }
     }

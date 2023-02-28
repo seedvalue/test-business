@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BusinessCfg : ScriptableObject
 {
-    //Уникальный ID, для сохранения состояния бизнеса
-    //Можно было и по имени, но если имя сменится,тогда сохранение не подтянется
+    //РЈРЅРёРєР°Р»СЊРЅС‹Р№ ID, РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ Р±РёР·РЅРµСЃР°
+    //РњРѕР¶РЅРѕ Р±С‹Р»Рѕ Рё РїРѕ РёРјРµРЅРё, РЅРѕ РµСЃР»Рё РёРјСЏ СЃРјРµРЅРёС‚СЃСЏ,С‚РѕРіРґР° СЃРѕС…СЂР°РЅРµРЅРёРµ РЅРµ РїРѕРґС‚СЏРЅРµС‚СЃСЏ
     public int ID;
-    //В конфиг можно добавить много бизнесов,
-    //но можно отключать включать на выбор
+    //Р’ РєРѕРЅС„РёРі РјРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РјРЅРѕРіРѕ Р±РёР·РЅРµСЃРѕРІ,
+    //РЅРѕ РјРѕР¶РЅРѕ РѕС‚РєР»СЋС‡Р°С‚СЊ РІРєР»СЋС‡Р°С‚СЊ РЅР° РІС‹Р±РѕСЂ
     public bool IsShowInList;
-    //При старте игры игрок имеет 1 бизнес,
-    //но галочкой можно изменить стартовое состояние,
-    //например иметь 2 бизнеса по необхожимости со старта.
+    //РџСЂРё СЃС‚Р°СЂС‚Рµ РёРіСЂС‹ РёРіСЂРѕРє РёРјРµРµС‚ 1 Р±РёР·РЅРµСЃ,
+    //РЅРѕ РіР°Р»РѕС‡РєРѕР№ РјРѕР¶РЅРѕ РёР·РјРµРЅРёС‚СЊ СЃС‚Р°СЂС‚РѕРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ,
+    //РЅР°РїСЂРёРјРµСЂ РёРјРµС‚СЊ 2 Р±РёР·РЅРµСЃР° РїРѕ РЅРµРѕР±С…РѕР¶РёРјРѕСЃС‚Рё СЃРѕ СЃС‚Р°СЂС‚Р°.
     public bool IsOwnAtStartGame;
     [Header("Business")]
     public string BusinessName;
@@ -23,10 +23,10 @@ public class BusinessCfg : ScriptableObject
     [Header("Upgrade 1")]
     public string UpgradeFirstName;
     public int UpgradeFirstPrice;
-    public int UpgradeFirstEarnМultiplier;
+    public int UpgradeFirstEarnРњultiplier;
     
     [Header("Upgrade 2")]
     public string UpgradeSecondName;
     public int UpgradeSecondPrice;
-    public int UpgradeSecondEarnМultiplier;
+    public int UpgradeSecondEarnРњultiplier;
 }
