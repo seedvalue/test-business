@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise">
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/App/EcsInitSysApp.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Business/Earn/EcsRunSysEarning.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Business/EcsComBusiness.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Business/EcsRunSystemTest.cs" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Business/Level/EcsRunSysBusinessLevelUp.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Business/Upgrade/EcsRunSysBusinessUpgrade.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Data/CreateAssetMenu/BusinessCfg.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Save/EcsEventTryRestoreBusiness.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Save/EcsRunSysSaveRestore.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/UI/ItemBusiness/EcsRunSysUiItemBusinessButtonsLock.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/UI/ItemBusiness/ViewUiOneBusiness.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/UI/WndGame/EcsRunSysWndGame.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/00_Project/00_Client/Wallet/EcsRunSysWallet.cs" charset="UTF-8" />
+  </component>
+</project>
